@@ -146,7 +146,14 @@ public abstract partial class SharedTransformSystem
         xform._anchored = false;
 
         if (setPhysics)
-            _physics.TrySetBodyType(uid, BodyType.Dynamic, xform: xform);
+        {
+            var bodyEv = new AnchorSetBodyEvent();
+            RaiseLocalEvent(uid, ref bodyEv);
+
+            var bodyType = bodyEv.BodyType ?? BodyType.Dynamic;
+            _physics.TrySetBodyType(uid, bodyType, xform: xform);
+        }
+
 
         if (xform.LifeStage < ComponentLifeStage.Initialized)
             return;

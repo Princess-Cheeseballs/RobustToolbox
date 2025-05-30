@@ -626,6 +626,16 @@ namespace Robust.Shared.GameObjects
     }
 
     /// <summary>
+    /// Raised on un-anchor when setting a new bodyType to override Dynamic.
+    /// </summary>
+    [ByRefEvent]
+    public struct AnchorSetBodyEvent(EntityUid uid)
+    {
+        public BodyType? BodyType = null;
+        public bool Handled;
+    }
+
+    /// <summary>
     ///     Data used to store information about the broad-phase that any given entity is currently on.
     /// </summary>
     /// <remarks>
